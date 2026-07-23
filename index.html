@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script src="./image-slot.js"></script>
+<style>
+  @font-face{font-family:'Rubik';src:url('assets/Rubik.ttf') format('truetype');font-weight:300 900;font-style:normal;font-display:swap}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Rubik',system-ui,sans-serif;color:#5C5C5C;background:#fff;font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  a{text-decoration:none;color:#6B2D90}
+  a:hover{color:#5A2579}
+  h1,h2,h3,h4{font-family:'Rubik',sans-serif;color:#1F1F1F;font-weight:600;line-height:1.15}
+  @keyframes ek-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-22px)}}
+  @keyframes ek-float2{0%,100%{transform:translateY(0) translateX(0)}50%{transform:translateY(18px) translateX(10px)}}
+  @keyframes ek-drift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+  @keyframes ek-spin{to{transform:rotate(360deg)}}
+  @keyframes ek-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @keyframes ek-pulse{0%{transform:scale(1);opacity:.5}70%{transform:scale(1.8);opacity:0}100%{opacity:0}}
+  @keyframes ek-dash{from{stroke-dashoffset:1000}to{stroke-dashoffset:0}}
+  @keyframes ek-logo-in{0%{opacity:0;transform:translateY(14px) scale(.96)}100%{opacity:1;transform:none}}
+  @keyframes ek-dot{0%,80%,100%{opacity:.25;transform:scale(.7)}40%{opacity:1;transform:scale(1)}}
+  #ek-loader.ek-hide{opacity:0;visibility:hidden;transition:opacity .7s ease,visibility 0s .7s}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</helmet>
+
+<div style="overflow-x: hidden; position: relative">
+
+<div id="ek-loader" style="position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#4A1D68 0%,#6B2D90 55%,#8E4BB8 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;overflow:hidden">
+  <svg viewBox="-1850 380 2300 840" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;left:-6%;top:32%;width:112%;height:auto;pointer-events:none;opacity:.9">
+    <path d="M-1809.7,1076.2c19.3-27.7,34.1-58,53.8-85.5,82.1-114.8,218.6-218.9,361.5-239.7,144.1-21,270.9,55,302.2,199.4,197.3,51,389.3,260.1,597.2,117.7,69.9-47.9,117.9-128.1,150.6-204.7-143.4-32.5-318.6-129.8-358.5-281.8-58.4-222.2,169.3-331.1,332-191.1,126.6,109,133.9,286.8,92.3,438.4,141.2,21.3,288.4,13.9,426.5-22.8,126.8-33.7,242.4-100,346.8-177.6v59.5c-114.3,81.3-237.8,143.2-375.7,173.8-135.2,30-278.1,35.5-414.7,11.3-50.4,116.9-127.7,232.7-253.8,275.1-197.2,66.3-361.3-88.4-537-147.2,1.3,95.9-59.4,200.8-149.5,237.2-146.8,59.2-280.6-62.4-183.1-205,58.3-85.3,176-109.9,273.1-94.8-14.2-61.2-73.3-116.9-133.2-134.4-101.5-29.7-220.7,19.9-302.9,78.7-109.3,78.2-180.4,191.4-227.6,315.6v-122.1Z" fill="none" stroke="#FFB3D6" stroke-width="9" stroke-linecap="round" stroke-dasharray="1000" style="animation:ek-dash 3s ease-in-out infinite"></path>
+  </svg>
+  <img src="assets/logo-white.svg" alt="Empowr Kind" style="height:64px;position:relative;z-index:2;animation:ek-logo-in .8s ease both">
+  <div style="display:flex;gap:10px;position:relative;z-index:2">
+    <span style="width:11px;height:11px;border-radius:50%;background:#FFB3D6;animation:ek-dot 1.3s ease-in-out infinite"></span>
+    <span style="width:11px;height:11px;border-radius:50%;background:#F0D3E7;animation:ek-dot 1.3s ease-in-out .2s infinite"></span>
+    <span style="width:11px;height:11px;border-radius:50%;background:#fff;animation:ek-dot 1.3s ease-in-out .4s infinite"></span>
+  </div>
+</div>
+
+<header data-nav="1" style="position:sticky;top:0;z-index:60;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);border-bottom:1px solid #ECE8E4;transition:box-shadow .3s">
+  <div style="width:min(1200px,92%);margin-inline:auto;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 0">
+    <a href="#top" style="display:flex;align-items:center"><img src="assets/logo-dark.svg" alt="Empowr Kind" style="height:38px"></a>
+    <nav data-menu="1" style="display:flex;align-items:center;gap:34px">
+      <a href="#services" style="color:#3A3A3A;font-size:.94rem;font-weight:500">Services</a>
+      <a href="#stages" style="color:#3A3A3A;font-size:.94rem;font-weight:500">Approach</a>
+      <a href="#steps" style="color:#3A3A3A;font-size:.94rem;font-weight:500">How it works</a>
+      <a href="#ndis" style="color:#3A3A3A;font-size:.94rem;font-weight:500">NDIS</a>
+      <a href="contact.html" onClick="{{ go }}" style="display:inline-flex;align-items:center;gap:8px;background:#6B2D90;color:#fff;padding:11px 24px;border-radius:999px;font-family:'Rubik';font-weight:500;font-size:.92rem;box-shadow:0 8px 22px rgba(107,45,144,.32);transition:transform .2s,box-shadow .2s" style-hover="transform:translateY(-2px);box-shadow:0 12px 28px rgba(107,45,144,.42)">Get in Touch</a>
+    </nav>
+    <button data-burger="1" onClick="{{ toggleMenu }}" aria-label="Menu" style="display:none;background:none;border:none;font-size:1.6rem;color:#1F1F1F;cursor:pointer">☰</button>
+  </div>
+</header>
+
+<section id="top" style="position:relative;background:linear-gradient(125deg,#4A1D68 0%,#6B2D90 45%,#8E4BB8 100%);background-size:180% 180%;animation:ek-drift 18s ease infinite;color:#fff;padding:76px 0 130px;overflow:hidden">
+  <svg viewBox="-1850 380 2300 840" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;left:-6%;top:24%;width:116%;height:auto;z-index:0;pointer-events:none">
+    <path d="M-1809.7,1076.2c19.3-27.7,34.1-58,53.8-85.5,82.1-114.8,218.6-218.9,361.5-239.7,144.1-21,270.9,55,302.2,199.4,197.3,51,389.3,260.1,597.2,117.7,69.9-47.9,117.9-128.1,150.6-204.7-143.4-32.5-318.6-129.8-358.5-281.8-58.4-222.2,169.3-331.1,332-191.1,126.6,109,133.9,286.8,92.3,438.4,141.2,21.3,288.4,13.9,426.5-22.8,126.8-33.7,242.4-100,346.8-177.6v59.5c-114.3,81.3-237.8,143.2-375.7,173.8-135.2,30-278.1,35.5-414.7,11.3-50.4,116.9-127.7,232.7-253.8,275.1-197.2,66.3-361.3-88.4-537-147.2,1.3,95.9-59.4,200.8-149.5,237.2-146.8,59.2-280.6-62.4-183.1-205,58.3-85.3,176-109.9,273.1-94.8-14.2-61.2-73.3-116.9-133.2-134.4-101.5-29.7-220.7,19.9-302.9,78.7-109.3,78.2-180.4,191.4-227.6,315.6v-122.1ZM-325.9,816.1c38.7-126.2,35-285.8-67-381.8-126.2-118.8-315.2-46.9-263,137.8s202.3,222.4,330.1,244ZM-1133.9,988.9c-68.2-14.9-143.1-9.1-202.2,30.2-102.6,68.1-90.5,204.7,52.5,184,88.5-12.8,158.8-128.7,149.7-214.2Z" fill="none" stroke="#FF9ECB" stroke-width="7" stroke-linecap="round" pathLength="1000" stroke-dasharray="150 850">
+      <animate attributeName="stroke-dashoffset" from="1000" to="0" dur="5.5s" repeatCount="indefinite"></animate>
+    </path>
+  </svg>
+  <div style="width:min(1200px,92%);margin-inline:auto;position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:center">
+    <div>
+      
+      <span data-reveal="1" style="display: inline-flex; align-items: center; gap: 9px; padding: 8px 16px; font-size: .8rem; font-weight: 500; letter-spacing: .02em">
+        <span style="width:8px;height:8px;border-radius:50%;background:#E0559A;box-shadow:0 0 0 0 rgba(224,85,158,.7)"></span>Registered NDIS Provider · Australia-wide
+      </span><h1 data-reveal="1" data-delay="80" style="color:#fff;font-size:clamp(2.4rem,4.8vw,4rem);font-weight:700;margin:22px 0 20px;letter-spacing:-.01em">Care that helps<br>every life <span style="position:relative;display:inline-block;color:#E0559A">shine<svg viewBox="0 0 200 14" preserveAspectRatio="none" style="position:absolute;left:0;bottom:-6px;width:100%;height:12px"><path d="M2 9 C55 2 145 2 198 8" fill="none" stroke="#E0559A" stroke-width="4" stroke-linecap="round"></path></svg></span>.</h1>
+      <p data-reveal="1" data-delay="160" style="color:rgba(255,255,255,.9);font-size:1.08rem;max-width:520px;margin-bottom:32px">Personalised disability, autism, childcare and aged care support — built on compassion, trust, and genuine human connection.</p>
+      <div data-reveal="1" data-delay="240" style="display:flex;gap:14px;flex-wrap:wrap">
+        <a href="contact.html" onClick="{{ go }}" style="display:inline-flex;align-items:center;gap:8px;background:#E0559A;color:#ffffff;padding:14px 30px;border-radius:999px;font-family:'Rubik';font-weight:600;font-size:1rem;box-shadow:0 12px 30px rgba(224,85,158,.35);transition:transform .2s,box-shadow .2s" style-hover="transform:translateY(-3px);box-shadow:0 16px 38px rgba(224,85,158,.5)">Start your journey →</a>
+        <a href="#services" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);color:#fff;padding:14px 30px;border-radius:999px;font-family:'Rubik';font-weight:500;font-size:1rem;border:1px solid rgba(255,255,255,.3);transition:background .2s" style-hover="background:rgba(255,255,255,.22)">Explore services</a>
+      </div>
+    </div>
+    <div data-reveal="1" data-delay="140" style="position:relative">
+      <div style="border-radius:32px;overflow:hidden;box-shadow:0 40px 80px rgba(30,10,45,.4);border:6px solid rgba(255,255,255,.12);animation:ek-float 10s ease-in-out infinite">
+        <img src="uploads/empowr-kind-website/images/daily-living.jpg" alt="A mother embracing her smiling daughter" style="width: 100%; height: 480px; object-fit: cover; object-position: 60% center; border-radius: 30px">
+      </div>
+      <div style="position:absolute;left:-26px;bottom:44px;background:#fff;border-radius:22px;padding:20px 24px;box-shadow:0 24px 50px rgba(30,10,45,.28);display:flex;align-items:center;gap:16px;animation:ek-float2 8s ease-in-out infinite">
+        <div style="width:52px;height:52px;border-radius:16px;background:#EBDCF7;display:grid;place-items:center;font-size:1.5rem">💜</div>
+        <div>
+          <div style="font-family:'Rubik';font-weight:700;font-size:1.9rem;color:#6B2D90;line-height:1"><span data-count="90">0</span>K<span style="color:#E0559A">+</span></div>
+          <div style="font-size:.8rem;color:#5C5C5C">lives supported with care</div>
+        </div>
+      </div>
+      <div style="position:absolute;right:-14px;top:30px;background:#fff;border-radius:16px;padding:12px 18px;box-shadow:0 18px 40px rgba(30,10,45,.24);display:flex;align-items:center;gap:8px;font-family:'Rubik';font-weight:500;color:#1F1F1F;font-size:.86rem;animation:ek-float 7s ease-in-out infinite">
+        <span style="width:9px;height:9px;border-radius:50%;background:#3AC77E"></span>Rated 4.9 by families
+      </div>
+    </div>
+  </div>
+  
+</section>
+
+<section style="background: linear-gradient(100deg, #EBDCF7, #EBDCF7EB, #EBDCF7); padding: 20px 0; overflow: hidden; position: relative">
+  
+  <div data-marquee="1" style="display:flex;gap:0;width:max-content;animation:ek-marquee 28s linear infinite" style-hover="animation-play-state:paused">
+    <sc-for list="{{ trustLoop }}" as="tp" hint-placeholder-count="8">
+      <span style="display: inline-flex; align-items: center; gap: 12px; padding: 0 30px; color: #5E2780; font-family: 'Rubik'; font-weight: 600; font-size: 1.12rem; white-space: nowrap">
+        <span style="width: 26px; height: 26px; border-radius: 100%; display: grid; place-items: center; color: #FFB3D6; font-size: .8rem; background-color: #F5F4F229">✦</span>{{ tp }}
+      </span>
+    </sc-for>
+  </div>
+</section>
+
+<section id="ndis" style="background: #F5F4F2; padding: 76px 0; position: relative">
+  <div style="width:min(1200px,92%);margin-inline:auto;display:grid;grid-template-columns:260px 1fr;gap:52px;align-items:center">
+    <div data-reveal="1" style="background: #fff; border-radius: 26px; padding: 34px 30px; text-align: center; box-shadow: 0 24px 50px rgba(107,45,144,.16); border: 1px solid #EFEAF4; width: 253px; height: 151px">
+      <img src="assets/ndis-registered.png" alt="Registered NDIS Provider" style="width:100%;max-width:230px;margin-inline:auto">
+      <div style="margin-top:22px;height:1px;background:#EFEAF4"></div>
+      
+    </div>
+    <div data-reveal="1" data-delay="120">
+      <span style="display:inline-block;background:#EBDCF7;color:#6B2D90;padding:6px 16px;border-radius:999px;font-size:.78rem;font-weight:600;letter-spacing:.02em">NDIS made simple</span>
+      <h2 style="font-size:clamp(1.7rem,3vw,2.4rem);margin:16px 0 14px">A registered provider you can actually rely on</h2>
+      <p style="margin-bottom:14px">We take the stress out of the NDIS. From early childhood and autism services to daily living and aged care, our team guides you clearly through every step — with honest communication and support that genuinely fits your life.</p>
+      <p style="margin-bottom:26px">No jargon. No pressure. Just care that's shaped around your goals, your circumstances, and the people you love.</p>
+      <a href="#steps" style="display:inline-flex;align-items:center;gap:8px;background:#2E2E2E;color:#fff;padding:13px 28px;border-radius:999px;font-family:'Rubik';font-weight:500;transition:transform .2s,background .2s" style-hover="transform:translateY(-2px);background:#1F1F1F">See how it works →</a>
+    </div>
+  </div>
+</section>
+
+<section id="stages" style="padding: 84px 0; background: #fff; width: 1327px; height: 936px">
+  <div style="width:min(1200px,92%);margin-inline:auto">
+    <div data-reveal="1" style="text-align:center;max-width:680px;margin-inline:auto">
+      <span style="display:inline-block;background:#EBDCF7;color:#6B2D90;padding:6px 16px;border-radius:999px;font-size:.78rem;font-weight:600">Our approach</span>
+      <h2 style="font-size:clamp(1.8rem,3.2vw,2.6rem);margin:16px 0 12px">Support for every stage of life</h2>
+      <p>Children, adults, seniors and families — cared for with warmth, consistency and respect at every stage of the journey.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px">
+      <div data-reveal="1" style="grid-column:span 1;background:#FBEFF4;border-radius:24px;padding:32px;transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-6px);box-shadow:0 24px 46px rgba(0,0,0,.09)">
+        <div style="width:52px;height:52px;border-radius:16px;background:#F6DCE7;display:grid;place-items:center;font-size:1.4rem;color:#C76A93">☺</div>
+        <h3 style="margin:18px 0 8px;font-size:1.18rem">Person-centred, always</h3>
+        <p style="font-size:.92rem">Every plan is built around the individual — flexible, respectful, and aligned to real goals and preferences.</p>
+      </div>
+      <div data-reveal="1" data-delay="80" style="grid-row:span 2;border-radius:24px;overflow:hidden;min-height:260px;position:relative">
+        <image-slot id="ek-app-1" src="uploads/empowr-kind-website/images/daily-living.jpg" shape="rect" fit="cover" placeholder=""></image-slot>
+      </div>
+      <div data-reveal="1" data-delay="120" style="border-radius:24px;overflow:hidden;min-height:200px">
+        <image-slot id="ek-app-2" src="uploads/empowr-kind-website/images/foster-care.jpg" shape="rect" fit="cover" placeholder=""></image-slot>
+      </div>
+      <div data-reveal="1" style="background:#EAF2F8;border-radius:24px;padding:32px;transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-6px);box-shadow:0 24px 46px rgba(0,0,0,.09)">
+        <div style="width:52px;height:52px;border-radius:16px;background:#D4E4F1;display:grid;place-items:center;font-size:1.4rem;color:#5E92BE">🤝</div>
+        <h3 style="margin:18px 0 8px;font-size:1.18rem">Trust that lasts</h3>
+        <p style="font-size:.92rem">Consistent faces, reliable care, and long-term relationships built on showing up — every single time.</p>
+      </div>
+      <div data-reveal="1" data-delay="80" style="background:#EDF6EE;border-radius:24px;padding:32px;transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-6px);box-shadow:0 24px 46px rgba(0,0,0,.09)">
+        <div style="width:52px;height:52px;border-radius:16px;background:#D8ECDB;display:grid;place-items:center;font-size:1.4rem;color:#6BA877">💛</div>
+        <h3 style="margin:18px 0 8px;font-size:1.18rem">Compassion at the core</h3>
+        <p style="font-size:.92rem">Kindness and empathy shape everything — creating a safe, warm space for every person we support.</p>
+      </div>
+      <div data-reveal="1" data-delay="120" style="border-radius:24px;overflow:hidden;min-height:200px">
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section id="services" style="padding:84px 0;background:#F5F4F2;position:relative">
+  <div style="width:min(1200px,92%);margin-inline:auto">
+    <div data-reveal="1" style="max-width:760px">
+      <span style="display:inline-block;background:#EBDCF7;color:#6B2D90;padding:6px 16px;border-radius:999px;font-size:.78rem;font-weight:600">What we do</span>
+      <h2 style="font-size:clamp(1.8rem,3.2vw,2.6rem);margin:16px 0 12px">Services shaped around real needs</h2>
+      <p>From early childhood and autism support to daily living, community, aged and foster care — every service is delivered with compassion and flexibility, helping people live more independently and confidently.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:30px;margin-top:48px">
+      <sc-for list="{{ services }}" as="s" hint-placeholder-count="6">
+        <div data-reveal="1" data-flip="{{ s.flip }}" style="display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;background:#fff;border-radius:28px;padding:22px;box-shadow:0 14px 40px rgba(0,0,0,.05);transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-5px);box-shadow:0 26px 54px rgba(0,0,0,.1)">
+          <div data-media="1" style="border-radius:20px;overflow:hidden;order:{{ s.mediaOrder }}">
+            <image-slot id="{{ s.slotId }}" src="{{ s.img }}" shape="rect" fit="cover" placeholder="" style="display:block;width:100%;height:340px"></image-slot>
+          </div>
+          <div style="padding:10px 18px">
+            <span style="display:inline-block;background:#EBDCF7;color:#6B2D90;padding:5px 14px;border-radius:999px;font-size:.74rem;font-weight:600">{{ s.pill }}</span>
+            <h3 style="font-size:1.6rem;margin:14px 0 12px">{{ s.title }}</h3>
+            <p style="font-size:.95rem">{{ s.body }}</p>
+            <ul style="list-style:none;margin:18px 0 22px;display:flex;flex-direction:column;gap:10px">
+              <sc-for list="{{ s.points }}" as="pt" hint-placeholder-count="3">
+                <li style="padding-left:30px;position:relative;font-size:.92rem;color:#3A3A3A"><span style="position:absolute;left:0;top:1px;width:20px;height:20px;border-radius:50%;background:#6B2D90;color:#fff;font-size:.7rem;display:grid;place-items:center">✓</span>{{ pt }}</li>
+              </sc-for>
+            </ul>
+            <a href="#enquire" style="font-family:'Rubik';font-weight:600;color:#1F1F1F;border-bottom:3px solid #E0559A;padding-bottom:2px;transition:color .2s" style-hover="color:#6B2D90">Learn more →</a>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section><section style="position:relative;background:linear-gradient(135deg,#F3E7FB 0%,#FBE9F2 100%);color:#3A3A3A;padding:90px 0;overflow:hidden">
+  <div style="width:min(1200px,92%);margin-inline:auto;position:relative;z-index:1;display:grid;grid-template-columns:1fr 340px;gap:56px;align-items:center">
+    <div data-reveal="1">
+      <span style="display:inline-block;background:#EBDCF7;color:#6B2D90;padding:6px 16px;border-radius:999px;font-size:.78rem;font-weight:600">Our mission</span>
+      <h2 style="font-size:clamp(1.9rem,3.4vw,2.8rem);margin:18px 0 18px">Empower lives with kindness</h2>
+      <p style="color:#5C5C5C;font-size:1.08rem;max-width:560px;margin-bottom:28px">We believe care should feel personal, respectful and human. Our mission is to deliver inclusive support that empowers every individual to live fully, safely, and on their own terms.</p>
+      <a href="#enquire" style="display:inline-flex;align-items:center;gap:8px;background:#6B2D90;color:#fff;padding:13px 28px;border-radius:999px;font-family:'Rubik';font-weight:600;box-shadow:0 10px 26px rgba(107,45,144,.3);transition:transform .2s" style-hover="transform:translateY(-2px)">Get to know us →</a>
+    </div>
+    <div data-reveal="1" data-delay="120" style="position:relative;width:300px;height:300px;margin-inline:auto">
+      <div style="position:absolute;inset:0;border-radius:50%;border:2px dashed rgba(107,45,144,.4);animation:ek-spin 26s linear infinite"></div>
+      <div style="position:absolute;inset:14px;border-radius:50%;overflow:hidden;border:6px solid rgba(255,255,255,.7);box-shadow:0 20px 44px rgba(107,45,144,.2)">
+        <image-slot id="ek-mission" src="uploads/empowr-kind-website/images/daily-living.jpg" shape="circle" fit="cover" placeholder=""></image-slot>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="steps" style="padding:84px 0;background:#fff">
+  <div style="width:min(1200px,92%);margin-inline:auto">
+    <div data-reveal="1" style="text-align:center;max-width:640px;margin-inline:auto">
+      <span style="display:inline-block;background:#EBDCF7;color:#6B2D90;padding:6px 16px;border-radius:999px;font-size:.78rem;font-weight:600">How it works</span>
+      <h2 style="font-size:clamp(1.8rem,3.2vw,2.6rem);margin:16px 0 12px">Getting started is simple</h2>
+      <p>Four easy steps — from your first hello to ongoing care that grows with you.</p>
+    </div>
+    <div style="position:relative;margin-top:56px">
+      <div style="position:absolute;top:34px;left:11%;right:11%;height:2px;background:repeating-linear-gradient(90deg,#E0D3EE 0 10px,transparent 10px 20px);z-index:0"></div>
+      <div style="position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);gap:26px">
+        <sc-for list="{{ steps }}" as="st" hint-placeholder-count="4">
+          <div data-reveal="1" data-delay="{{ st.delay }}" style="background:#fff;border:1px solid #EFEAF4;border-radius:24px;padding:30px 24px 28px;text-align:center;box-shadow:0 12px 34px rgba(107,45,144,.06);transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-8px);box-shadow:0 26px 54px rgba(107,45,144,.14)">
+            <div style="width:68px;height:68px;margin:0 auto 18px;border-radius:20px;background:{{ st.bg }};color:{{ st.fg }};display:grid;place-items:center;font-family:'Rubik';font-weight:700;font-size:1.5rem;box-shadow:0 8px 20px rgba(107,45,144,.1)">{{ st.num }}</div>
+            <h3 style="margin:0 0 8px;font-size:1.14rem">{{ st.title }}</h3>
+            <p style="font-size:.9rem">{{ st.body }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding:20px 0 84px;background:#fff;overflow:hidden">
+  <div style="width:min(1200px,92%);margin-inline:auto">
+    <div data-reveal="1" style="display:flex;align-items:end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:34px">
+      <div>
+        <span style="display:inline-block;background:#EBDCF7;color:#6B2D90;padding:6px 16px;border-radius:999px;font-size:.78rem;font-weight:600">Life at Empowr Kind</span>
+        <h2 style="font-size:clamp(1.8rem,3.2vw,2.6rem);margin-top:16px">Moments of care &amp; connection</h2>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:230px;gap:16px">
+      <div data-reveal="1" style="grid-column:span 3;grid-row:span 2;border-radius:24px;overflow:hidden;box-shadow:0 14px 40px rgba(0,0,0,.08);transition:transform .35s,box-shadow .35s;animation:ek-float 9s ease-in-out infinite" style-hover="transform:translateY(-6px);box-shadow:0 28px 56px rgba(0,0,0,.14)">
+        <image-slot id="ek-gal-1" src="uploads/empowr-kind-website/images/foster-care.jpg" shape="rect" fit="cover" placeholder=""></image-slot>
+      </div>
+      <div data-reveal="1" data-delay="90" style="grid-column:span 3;border-radius:24px;overflow:hidden;box-shadow:0 14px 40px rgba(0,0,0,.08);transition:transform .35s,box-shadow .35s;animation:ek-float2 11s ease-in-out infinite" style-hover="transform:translateY(-6px);box-shadow:0 28px 56px rgba(0,0,0,.14)">
+        <image-slot id="ek-gal-2" src="uploads/empowr-kind-website/images/aged-care.jpg" shape="rect" fit="cover" placeholder=""></image-slot>
+      </div>
+      <div data-reveal="1" data-delay="180" style="grid-column:span 3;border-radius:24px;overflow:hidden;box-shadow:0 14px 40px rgba(0,0,0,.08);transition:transform .35s,box-shadow .35s;animation:ek-float 10.5s ease-in-out infinite" style-hover="transform:translateY(-6px);box-shadow:0 28px 56px rgba(0,0,0,.14)">
+        <image-slot id="ek-gal-3" src="uploads/empowr-kind-website/images/daily-living.jpg" shape="rect" fit="cover" placeholder=""></image-slot>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="position:relative;background:linear-gradient(125deg,#4A1D68,#6B2D90 55%,#8E4BB8);background-size:180% 180%;animation:ek-drift 18s ease infinite;color:#fff;padding:84px 0;text-align:center;overflow:hidden">
+  <svg viewBox="-1850 380 2300 840" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;left:-5%;bottom:-6%;width:110%;height:auto;pointer-events:none">
+    <path d="M-1809.7,1076.2c19.3-27.7,34.1-58,53.8-85.5,82.1-114.8,218.6-218.9,361.5-239.7,144.1-21,270.9,55,302.2,199.4,197.3,51,389.3,260.1,597.2,117.7,69.9-47.9,117.9-128.1,150.6-204.7-143.4-32.5-318.6-129.8-358.5-281.8-58.4-222.2,169.3-331.1,332-191.1,126.6,109,133.9,286.8,92.3,438.4,141.2,21.3,288.4,13.9,426.5-22.8,126.8-33.7,242.4-100,346.8-177.6v59.5c-114.3,81.3-237.8,143.2-375.7,173.8-135.2,30-278.1,35.5-414.7,11.3-50.4,116.9-127.7,232.7-253.8,275.1-197.2,66.3-361.3-88.4-537-147.2,1.3,95.9-59.4,200.8-149.5,237.2-146.8,59.2-280.6-62.4-183.1-205,58.3-85.3,176-109.9,273.1-94.8-14.2-61.2-73.3-116.9-133.2-134.4-101.5-29.7-220.7,19.9-302.9,78.7-109.3,78.2-180.4,191.4-227.6,315.6v-122.1ZM-325.9,816.1c38.7-126.2,35-285.8-67-381.8-126.2-118.8-315.2-46.9-263,137.8s202.3,222.4,330.1,244ZM-1133.9,988.9c-68.2-14.9-143.1-9.1-202.2,30.2-102.6,68.1-90.5,204.7,52.5,184,88.5-12.8,158.8-128.7,149.7-214.2Z" fill="none" stroke="#FFB3D6" stroke-width="7" stroke-linecap="round" pathLength="1000" stroke-dasharray="150 850">
+      <animate attributeName="stroke-dashoffset" from="1000" to="0" dur="5.5s" repeatCount="indefinite"></animate>
+    </path>
+  </svg>
+  <div style="width:min(760px,92%);margin-inline:auto;position:relative;z-index:1">
+    <h2 data-reveal="1" style="color:#fff;font-size:clamp(1.9rem,3.4vw,2.7rem);margin-bottom:16px">Ready to take the next step?</h2>
+    <p data-reveal="1" data-delay="80" style="color:rgba(255,255,255,.9);font-size:1.06rem;margin-bottom:30px">Getting started is easier than you think. We're here to listen and help you find a support plan that fits your needs and your life.</p>
+    <a data-reveal="1" data-delay="140" href="contact.html" onClick="{{ go }}" style="display:inline-flex;align-items:center;gap:8px;background:#E0559A;color:#ffffff;padding:15px 34px;border-radius:999px;font-family:'Rubik';font-weight:600;font-size:1.05rem;box-shadow:0 14px 34px rgba(224,85,158,.4);transition:transform .2s" style-hover="transform:translateY(-3px)">Get in Touch →</a>
+  </div>
+</section>
+
+<section style="padding:84px 0;background:#F5F4F2">
+  <div style="width:min(1200px,92%);margin-inline:auto">
+    <div data-reveal="1" style="text-align:center;max-width:640px;margin-inline:auto">
+      <span style="display:inline-block;background:#EBDCF7;color:#6B2D90;padding:6px 16px;border-radius:999px;font-size:.78rem;font-weight:600">Kind words</span>
+      <h2 style="font-size:clamp(1.8rem,3.2vw,2.6rem);margin:16px 0 12px">What families tell us</h2>
+      <p>Real experiences from the people and families we support every day.</p>
+    </div>
+    <div style="columns:3;column-gap:20px;margin-top:48px">
+      <sc-for list="{{ testimonials }}" as="t" hint-placeholder-count="6">
+        <div data-reveal="1" style="break-inside:avoid;background:#fff;border-radius:22px;padding:26px;margin-bottom:20px;box-shadow:0 10px 30px rgba(0,0,0,.05)">
+          <div style="color:#E0559A;font-size:1rem;margin-bottom:10px">★★★★★</div>
+          <p style="font-size:.93rem;color:#3A3A3A;margin-bottom:20px">{{ t.quote }}</p>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:44px;height:44px;border-radius:50%;background:{{ t.bg }};color:{{ t.fg }};display:grid;place-items:center;font-family:'Rubik';font-weight:600;font-size:.9rem;flex:none">{{ t.initials }}</div>
+            <div>
+              <b style="display:block;font-family:'Rubik';font-weight:600;color:#1F1F1F;font-size:.92rem">{{ t.name }}</b>
+              <span style="font-size:.78rem;color:#8A8A8A">{{ t.role }}</span>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="enquire" style="background:linear-gradient(160deg,#5A2579,#6B2D90 55%,#7C3AA6);color:#EDEDED">
+  <div style="width:min(1200px,92%);margin-inline:auto;display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap;padding:56px 0;border-bottom:1px solid rgba(255,255,255,.1)">
+    <div data-reveal="1">
+      <h2 style="color:#fff;font-size:1.7rem;margin-bottom:8px">Enquire about our services</h2>
+      <p style="color:rgba(255,255,255,.75);max-width:560px;font-size:.95rem">Have questions or looking for the right support? Reach out and we'll help you understand your options and find care that fits.</p>
+    </div>
+    <a href="contact.html" onClick="{{ go }}" style="display:inline-flex;align-items:center;gap:8px;background:#E0559A;color:#ffffff;padding:14px 30px;border-radius:999px;font-family:'Rubik';font-weight:600;transition:transform .2s" style-hover="transform:translateY(-2px)">Get in Touch →</a>
+  </div>
+  <div style="width:min(1200px,92%);margin-inline:auto;display:grid;grid-template-columns:1.7fr 1fr 1fr 1.2fr;gap:40px;padding:56px 0 40px">
+    <div>
+      <img src="assets/logo-white.svg" alt="Empowr Kind" style="height:40px;margin-bottom:16px">
+      <p style="color:rgba(255,255,255,.82);font-size:.9rem;max-width:340px">Inclusive support that empowers individuals to live with independence, dignity and confidence — care that's flexible, respectful, and tailored to every person and family.</p>
+      <div style="display:flex;gap:12px;margin-top:18px">
+        <a href="#" aria-label="Facebook" style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.14);display:grid;place-items:center;color:#fff;transition:background .2s" style-hover="background:#E0559A">f</a>
+        <a href="#" aria-label="Instagram" style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.14);display:grid;place-items:center;color:#fff;transition:background .2s" style-hover="background:#E0559A">◎</a>
+        <a href="#" aria-label="LinkedIn" style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.14);display:grid;place-items:center;color:#fff;font-size:.82rem;transition:background .2s" style-hover="background:#E0559A">in</a>
+      </div>
+    </div>
+    <div>
+      <h4 style="color:#fff;margin-bottom:16px;font-size:.98rem">Quick Links</h4>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:9px;font-size:.88rem">
+        <li><a href="#top" style="color:rgba(255,255,255,.8)" style-hover="color:#E0559A">Home</a></li>
+        <li><a href="#services" style="color:rgba(255,255,255,.8)" style-hover="color:#E0559A">Services</a></li>
+        <li><a href="#stages" style="color:rgba(255,255,255,.8)" style-hover="color:#E0559A">Approach</a></li>
+        <li><a href="#ndis" style="color:rgba(255,255,255,.8)" style-hover="color:#E0559A">NDIS</a></li>
+        <li><a href="contact.html" onClick="{{ go }}" style="color:rgba(255,255,255,.8)" style-hover="color:#E0559A">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 style="color:#fff;margin-bottom:16px;font-size:.98rem">Services</h4>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:9px;font-size:.88rem">
+        <li><a href="#services" style="color:rgba(255,255,255,.8)" style-hover="color:#E0559A">Autism Support</a></li>
+        <li><a href="#services" style="color:rgba(255,255,255,.8)" style-hover="color:#E0559A">Daily Living</a></li>
+        <li><a href="#services" style="color:rgba(255,255,255,.8)" style-hover="color:#E0559A">Disability Services</a></li>
+        <li><a href="#services" style="color:rgba(255,255,255,.8)" style-hover="color:#E0559A">Community</a></li>
+        <li><a href="#services" style="color:rgba(255,255,255,.8)" style-hover="color:#E0559A">Aged &amp; Foster Care</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 style="color:#fff;margin-bottom:16px;font-size:.98rem">Contact Us</h4>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:9px;font-size:.88rem;color:rgba(255,255,255,.8)">
+        <li>☎ +61 2 4622 XXXX</li>
+        <li>✉ <a href="mailto:info@empowrkind.com.au" style="color:rgba(255,255,255,.8)" style-hover="color:#E0559A">info@empowrkind.com.au</a></li>
+        <li style="margin-top:6px">Suite 23, Level 3, 301 Street<br>Sydney NSW 2000, Australia</li>
+      </ul>
+    </div>
+  </div>
+  <div style="text-align:center;padding:20px 0;border-top:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.62);font-size:.8rem">© 2025 Empowr Kind Pty. Ltd. All Rights Reserved.</div>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      go: (e) => { e.preventDefault(); const href = e.currentTarget.getAttribute('href'); try { window.top.location.href = href; } catch (_) { window.location.href = href; } },
+      toggleMenu: () => {
+        const m = this.base && this.base.querySelector('[data-menu]');
+        if (m) m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
+      },
+      steps: [
+        { num: "01", delay: 0, bg: "#F6DCE7", fg: "#C76A93", title: "Get in touch", body: "Reach out to chat through your needs and how we can help — no pressure, ever." },
+        { num: "02", delay: 90, bg: "#D8ECDB", fg: "#6BA877", title: "We get to know you", body: "We learn your goals and preferences to shape support that genuinely fits." },
+        { num: "03", delay: 180, bg: "#D4E4F1", fg: "#5E92BE", title: "Build your plan", body: "Together we design a flexible plan aligned to your NDIS funding and needs." },
+        { num: "04", delay: 270, bg: "#EBDCF7", fg: "#6B2D90", title: "Ongoing care", body: "We deliver quality support and adapt as your goals and life change." }
+      ],
+      trustLoop: (() => {
+        const t = ["NDIS registered", "Person-centred care", "Australia-wide", "Trusted by families", "Compassion first", "Flexible support"];
+        return t.concat(t);
+      })(),
+      services: [
+        { pill: "Early Development", title: "Autism Support", flip: false, mediaOrder: 0, slotId: "ek-svc-autism",
+          img: "uploads/empowr-kind-website/images/daily-living.jpg",
+          body: "Tailored support that helps children and individuals build communication, social and everyday skills in a warm, understanding environment shaped to each person's strengths and sensory needs.",
+          points: ["Communication & social skill development", "Behavioural & sensory support strategies", "Family collaboration & guided care plans"] },
+        { pill: "Everyday Care", title: "Daily Living Support", flip: true, mediaOrder: 1,
+          slotId: "ek-svc-daily", img: "uploads/empowr-kind-website/images/aged-care.jpg",
+          body: "Reliable help with daily routines so people can live more independently and comfortably — from personal care to household tasks, always with dignity at the centre.",
+          points: ["Personal care & hygiene assistance", "Meal prep & household help", "Routine building & daily structure"] },
+        { pill: "Empowered Living", title: "Disability Services", flip: false, mediaOrder: 0,
+          slotId: "ek-svc-disability", img: "uploads/empowr-kind-website/images/foster-care.jpg",
+          body: "Personalised plans that empower individuals to live independently and take part fully in everyday life — building confidence, ability and meaningful goals.",
+          points: ["Individualised support planning", "Mobility & independence assistance", "Everyday-living skill development"] },
+        { pill: "Social Connection", title: "Community Participation", flip: true, mediaOrder: 1, slotId: "ek-svc-community",
+          img: "uploads/empowr-kind-website/images/daily-living.jpg",
+          body: "We help people become active members of their community through social, recreational and skill-building activities that foster confidence and genuine connection.",
+          points: ["Social & recreational activities", "Community access & engagement", "Confidence & relationship building"] },
+        { pill: "Senior Support", title: "Aged Care", flip: false, mediaOrder: 0,
+          slotId: "ek-svc-aged", img: "uploads/empowr-kind-website/images/aged-care.jpg",
+          body: "Compassionate, respectful support for older adults — assisting with daily needs while promoting independence, comfort and emotional wellbeing at every stage of ageing.",
+          points: ["Personal care & daily assistance", "Health & wellbeing support", "Companionship & routine care"] },
+        { pill: "Safe Homes", title: "Foster Care", flip: true, mediaOrder: 1,
+          slotId: "ek-svc-foster", img: "uploads/empowr-kind-website/images/foster-care.jpg",
+          body: "Safe, stable and nurturing homes for children and young people — working closely with carers and families to prioritise wellbeing, development and long-term stability.",
+          points: ["Safe, supportive living environments", "Emotional & developmental support", "Ongoing guidance for carers"] }
+      ],
+      gallery: (() => {
+        const imgs = ["gallery-1","gallery-4","gallery-2","gallery-6","gallery-7","gallery-3","gallery-8","gallery-5"]
+          .map(n => "uploads/empowr-kind-website/images/" + n + ".jpg");
+        return imgs.concat(imgs);
+      })(),
+      testimonials: [
+        { quote: "Empowr Kind has made such a positive difference in my child's life. The team is patient, understanding, and truly cares about their progress. We finally feel supported.", initials: "ET", bg: "#F6DCE7", fg: "#C76A93", name: "Emily Thompson", role: "Parent of NDIS Participant" },
+        { quote: "We struggled to find consistent support until we connected with Empowr Kind. From the start they took time to understand our situation. We feel reassured our loved one is in safe hands.", initials: "SR", bg: "#D4E4F1", fg: "#5E92BE", name: "Sophie Reynolds", role: "Family Carer" },
+        { quote: "Kind, reliable, and always there when we need them.", initials: "NP", bg: "#D8ECDB", fg: "#6BA877", name: "Noah Parker", role: "NDIS Participant" },
+        { quote: "The care and attention has been exceptional. The staff are kind, respectful, and always go above and beyond to keep my parent comfortable and supported.", initials: "EC", bg: "#EBDCF7", fg: "#6B2D90", name: "Ethan Collins", role: "Family Carer" },
+        { quote: "I've gained more independence since starting with their support. The staff are respectful, patient and genuinely invested in helping me reach my goals. It shows in everything they do.", initials: "AR", bg: "#F6DCE7", fg: "#C76A93", name: "Aisha Rahman", role: "NDIS Participant" },
+        { quote: "The team helped my mother settle into a routine she loves. Truly compassionate care.", initials: "ML", bg: "#F6DCE7", fg: "#C76A93", name: "Margaret Lewis", role: "Family of Aged Care Client" }
+      ]
+    };
+  }
+
+  componentDidMount() {
+    const root = this.base || document;
+    // loading overlay: hide once window has loaded (min 900ms of brand moment)
+    const loader = root.querySelector('#ek-loader');
+    if (loader) {
+      const hide = () => setTimeout(() => loader.classList.add('ek-hide'), 900);
+      if (document.readyState === 'complete') hide();
+      else window.addEventListener('load', hide, { once: true });
+      setTimeout(() => loader.classList.add('ek-hide'), 4000); // safety
+    }
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+    // flip service media on odd rows
+    root.querySelectorAll('[data-flip="true"] [data-media]').forEach(m => { m.style.order = '2'; });
+
+    const els = Array.prototype.slice.call(root.querySelectorAll('[data-reveal]'));
+    const show = (el) => {
+      const d = parseInt(el.getAttribute('data-delay') || '0', 10);
+      setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'none'; }, reduce ? 0 : d);
+      el.__shown = true;
+    };
+
+    if (reduce) {
+      els.forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; });
+    } else {
+      els.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(26px)';
+        el.style.transition = 'opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1)';
+      });
+      const check = () => {
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        els.forEach(el => {
+          if (el.__shown) return;
+          const r = el.getBoundingClientRect();
+          if (r.top < vh * 0.9 && r.bottom > 0) show(el);
+        });
+      };
+      // reveal in-viewport elements immediately, then track scroll/resize
+      requestAnimationFrame(check);
+      window.addEventListener('scroll', check, { passive: true });
+      window.addEventListener('resize', check, { passive: true });
+      // try IntersectionObserver too, if available
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(e => { if (e.isIntersecting && !e.target.__shown) show(e.target); });
+        }, { threshold: 0.12 });
+        els.forEach(el => io.observe(el));
+      }
+      // safety net: never leave the page invisible
+      setTimeout(() => els.forEach(el => { if (!el.__shown) show(el); }), 1500);
+    }
+
+    // animated counter
+    const counter = root.querySelector('[data-count]');
+    if (counter) {
+      const target = parseInt(counter.getAttribute('data-count'), 10);
+      let ran = false;
+      const run = () => {
+        if (ran) return; ran = true;
+        if (reduce) { counter.textContent = target; return; }
+        let start = null; const dur = 1600;
+        const step = (ts) => {
+          if (!start) start = ts;
+          const p = Math.min((ts - start) / dur, 1);
+          counter.textContent = Math.round((1 - Math.pow(1 - p, 3)) * target);
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      };
+      const cCheck = () => {
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        const r = counter.getBoundingClientRect();
+        if (r.top < vh * 0.85 && r.bottom > 0) run();
+      };
+      requestAnimationFrame(cCheck);
+      window.addEventListener('scroll', cCheck, { passive: true });
+      setTimeout(run, 1500);
+    }
+  }
+}
+</script>
+</body>
+</html>
